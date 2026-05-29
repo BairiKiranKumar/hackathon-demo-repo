@@ -1,0 +1,22 @@
+.bh-dropdown-trigger {
+  color: var(--primary-color);
+  display: flex;
+  align-items:center;
+  gap: 2px;
+}
+
+.bh-dropdown-wrap {
+  padding: 0 12px;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.12);
+}
+
+.bh-dropdown-wrap .mantine-Menu-item {
+  border-radius: 0;
+  border-bottom: 1px solid #DEE2E6;
+  padding: 10px 0;
+  background-color: #fff;
+}
+
+.bh-dropdown-wrap .mantine-Menu-item:last-of-type {
+  border-bottom: 0;
+}

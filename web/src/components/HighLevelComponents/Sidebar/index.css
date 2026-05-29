@@ -1,0 +1,66 @@
+.bh-user-sidebar {
+  width: 66px;
+  min-width: 66px;
+  padding: 12px 7px;
+  background: #FFF;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  height: 100vh;
+}
+
+.bh-user-sidebar .sidebar-nav {
+  height: calc(100% - 60px);
+  overflow-y: auto;
+}
+
+.bh-user-sidebar .sidebar-nav-item {
+  text-align: center;
+}
+
+.bh-user-sidebar .sidebar-nav-item .menu-label {
+  font-size: 10px;
+  color: var(--text-grey);
+  font-weight: 600;
+  line-height: 12px;
+}
+
+.bh-user-sidebar .sidebar-nav-item .md-btn-icon {
+  padding: 8px 7px;
+  border-radius: 8px;
+  display: inline-flex;
+}
+
+.bh-user-sidebar .bottomLink.profile .md-btn-icon {
+  border-radius: 64px;
+  background: rgba(134, 142, 150, 0.12);
+  padding: 8px;
+}
+
+.bh-user-sidebar .bottomLink.profile .md-btn-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.bh-user-sidebar .sidebar-nav-item.active .md-btn-icon,
+.bh-user-sidebar .sidebar-nav-item:hover .md-btn-icon {
+  background: var(--primary-sea-green);
+}
+
+
+
+.bh-user-sidebar .sidebar-nav-item.active span {
+  color: #212529;
+}
+
+.bh-user-sidebar .sidebar-nav-item.active svg,
+.bh-user-sidebar .sidebar-nav-item:hover svg {
+  color: #000;
+}
+
+.bh-user-sidebar .bottomLink.mt-auto {
+  margin-top: auto;
+}
+
+.bh-user-sidebar .bottomLink svg {
+  color: var(--text-grey);
+}

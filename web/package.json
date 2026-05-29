@@ -1,0 +1,43 @@
+{
+  "name": "web",
+  "version": "0.0.0",
+  "private": true,
+  "browserslist": {
+    "development": [
+      "last 1 version"
+    ],
+    "production": [
+      "defaults"
+    ]
+  },
+  "dependencies": {
+    "@mantine/dates": "^7.15.3",
+    "@mantine/tiptap": "^7.13.2",
+    "@redwoodjs/auth-dbauth-web": "8.8.1",
+    "@redwoodjs/forms": "8.8.1",
+    "@redwoodjs/router": "8.8.1",
+    "@redwoodjs/web": "8.8.1",
+    "@tiptap/extension-link": "^2.11.0",
+    "@tiptap/extension-text-style": "^2.11.0",
+    "@tiptap/extension-underline": "^2.11.0",
+    "@tiptap/pm": "^2.11.0",
+    "@tiptap/react": "^2.11.0",
+    "@tiptap/starter-kit": "^2.11.0",
+    "dayjs": "^1.11.13",
+    "humanize-string": "2.1.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.13.3",
+    "@mantine/core": "^7.13.2",
+    "@mantine/hooks": "^7.13.2",
+    "@redwoodjs/vite": "8.8.1",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "postcss": "^8.4.47",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1"
+  }
+}

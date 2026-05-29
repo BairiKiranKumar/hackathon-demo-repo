@@ -1,0 +1,20 @@
+.badge-urgent{
+  background-color: var(--high-impact-bg);
+  color: var(--high-impact-color) !important;
+}
+
+.badge-high{
+  background-color: var(--high-impact-bg);
+}
+
+.badge-medium{
+  background-color: var(--medium-impact-bg);
+}
+
+.badge-low{
+  background-color: var(--low-badge-bg);
+}
+
+.priority-badge{
+  color: #000;
+}

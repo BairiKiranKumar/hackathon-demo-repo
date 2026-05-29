@@ -1,0 +1,22 @@
+.insight-diagnosis .mantine-Timeline-item.active .mantine-Timeline-itemBullet {
+  background: #fff;
+  border-color: #FA5252;
+}
+
+.insight-diagnosis .mantine-Timeline-item .mantine-Timeline-itemTitle{
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.insight-diagnosis .mantine-Timeline-item .mantine-Timeline-itemBullet {
+  background: var(--text-light-grey);
+  border-color: var(--text-light-grey);
+}
+
+.insight-diagnosis .time-text {
+  color: var(--text-grey);
+  font-size: 12px;
+  font-weight: 500;
+}

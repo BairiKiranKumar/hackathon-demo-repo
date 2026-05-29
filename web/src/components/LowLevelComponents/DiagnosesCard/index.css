@@ -1,0 +1,68 @@
+.diagnoses-card:hover {
+  background-color: var(--bg-primary-grey);
+  border-color: #eef2f0;
+}
+
+.diagnoses-card {
+  border: 1px solid transparent;
+}
+
+.bh-icon-Comment {
+  color: var(--text-light-grey);
+  font-size: 24px;
+}
+
+.disliked-icon {
+  visibility: visible !important;
+  color: #ba1717;
+  z-index: 1;
+  position: relative;
+}
+
+.diagnoses-card .bh-btn-transparent {
+  visibility: hidden;
+}
+
+.diagnoses-card:hover .bh-btn-transparent {
+  visibility: visible;
+}
+
+.feedback-reasons .mantine-Chip-iconWrapper {
+  display: none;
+}
+
+.feedback-reasons .mantine-Chip-label {
+  padding: 0 8px;
+  font-size: 12px;
+  height: 24px;
+}
+
+.feedback-reasons .mantine-Chip-label:not([data-disabled]):where([data-checked]) {
+  background-color: var(--primary-sea-green);
+  color: #000000;
+}
+
+.feedback-reasons {
+  border-color: var(--platinum-color);
+}
+
+.diagnoses-card .inner-insight-card {
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  padding: 16px;
+  margin: 0;
+}
+
+.diagnoses-card .sub-card-pill {
+  --pill-height: 24px !important;
+}
+
+.feedback-chips {
+  line-height: 16px;
+}
+
+.feedback-popover-submit[disabled]{
+  color: var(--text-grey);
+  background-color: #e9ecef;
+}

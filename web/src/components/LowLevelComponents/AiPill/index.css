@@ -1,0 +1,14 @@
+.ai-pill{
+  background: var(--gradients-ai);
+  box-shadow: -1px -1px 3px 0px #552EEE inset, 1px 1px 3px 0px #F81974 inset;
+  padding: 4px 8px;
+}
+
+.ai-pill p {
+  font-size: inherit;
+}
+
+.ai-pill-label{
+  height: 100%;
+  align-items: center;
+}

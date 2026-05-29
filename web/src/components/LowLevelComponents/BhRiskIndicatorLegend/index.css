@@ -1,0 +1,14 @@
+.care-plan-legend {
+  margin-top: auto;
+  background-color: #fff;
+}
+
+.priority-tag {
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 50px;
+  font-size: 11px;
+}

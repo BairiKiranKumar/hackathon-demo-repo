@@ -1,0 +1,27 @@
+.btn{
+  border-radius: 4px;
+  font-family: 'Nunito';
+  font-weight: 500;
+}
+
+.btn.mantine-active:active {
+  transform: unset;
+}
+
+.btn-outline{
+  background-color: #fff;
+}
+
+.btn-outline:hover{
+  background-color: #e6f0ec;
+}
+
+.btn-default{
+  border-color: #DEE2E6;
+}
+
+.btn-filled:disabled,
+.btn-filled.disabled {
+  background: #e9ecef;
+  color: var(--text-grey)
+}

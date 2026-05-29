@@ -1,0 +1,33 @@
+.hompage-calendar .mantine-Input-wrapper {
+  --input-bg: transparent !important;
+  --input-bd: none !important;
+}
+
+.hompage-calendar .mantine-DateInput-input {
+  width: 95px;
+  font-size: 18px;
+  padding: 0px;
+}
+
+.calendar-main-comp {
+  cursor: pointer;
+  display: flex;
+  position: relative
+}
+
+.calendar-main-comp .mantine-Popover-dropdown {
+  position: absolute !important;
+  top: 50px !important;
+  left: 50px !important
+}
+
+.calendar-text {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 4px;
+}
+
+.home-header-wrap {
+  border-bottom: 1px solid #F9FAFC;
+}

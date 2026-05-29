@@ -1,0 +1,38 @@
+.timeline-wrapper {
+  overflow-y: auto;
+}
+
+.bh-home-container:has(.schedule-wrapper.collapsed) .timeline-events-view {
+  width: calc(100% - 340px)
+}
+
+.bh-home-container .slots-column-wrap .event-slot{
+  position: relative;
+}
+
+.bh-home-container .slots-column-wrap .event-slot.odd::before {
+  position: absolute;
+  content: '';
+  right: -15.3px;
+  top: 3px;
+  height: 8px;
+  width: 8px;
+  background-color: #ADB5BD;
+  border-radius: 100%;
+  z-index: 1;
+}
+
+.added-slot {
+  visibility: hidden;
+}
+
+.slot-drop.active::before, .slot-drop.active::after {
+  position: absolute;
+  content: '';
+  background-color: var(--primary-color);
+  z-index: 2;
+}
+
+.bh-home-container .bh-skeleton.bh-ai-loader::after {
+  background: linear-gradient(89deg, #5721B7 0.8%, #D668CD 96.31%);
+}

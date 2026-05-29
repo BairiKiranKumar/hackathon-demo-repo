@@ -1,0 +1,11 @@
+.current-ico {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0px 2.854px 5.707px 0px rgba(68, 68, 79, 0.15);
+}
+
+.ico-center {
+  justify-content: center;
+  place-items: center;
+  gap: 8px;
+}

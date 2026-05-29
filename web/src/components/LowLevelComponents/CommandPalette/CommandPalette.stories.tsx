@@ -1,0 +1,18 @@
+import type { Meta, StoryObj } from '@storybook/react'
+
+import CommandPalette from './CommandPalette'
+
+const meta: Meta<typeof CommandPalette> = {
+  component: CommandPalette,
+  tags: ['autodocs'],
+}
+
+export default meta
+
+type Story = StoryObj<typeof CommandPalette>
+
+export const Primary: Story = {
+  args: {
+    isVisible: true,
+  },
+}

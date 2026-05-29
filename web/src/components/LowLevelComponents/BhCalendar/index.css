@@ -1,0 +1,11 @@
+.calendar-main-comp.hompage-calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mantine-Popover-dropdown[data-dates-dropdown="true"] {
+ position: absolute;
+ top: 60px !important;
+ left: 188px !important;
+}

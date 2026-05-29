@@ -1,0 +1,180 @@
+// Don't forget to tell Prisma about your edits to this file using
+// `yarn rw prisma migrate dev` or `yarn rw prisma db push`.
+// `migrate` is like committing while `push` is for prototyping.
+// Read more about both here:
+// https://www.prisma.io/docs/orm/prisma-migrate
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = "native"
+}
+
+model User {
+  id                  Int              @id @default(autoincrement())
+  name                String?
+  email               String           @unique
+  hashedPassword      String
+  salt                String
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+  assignedEvents      Event[]          @relation("UserToAssignedEvents")
+}
+
+model Member {
+  id Int @id @default(autoincrement())
+
+  // fhir data information
+  name           String
+  dob            DateTime
+  gender         String
+  ethnicity      String?
+  language       String?
+  languageSkills LanguageSkill[]
+  phone          String?
+  secondaryPhone String?
+  address        String?
+
+  // member profile information
+  image String?
+  quote String?
+  bio   String?
+
+  insight    Insight?
+  overview   Overview?
+  encounters Encounter?
+}
+
+model Insight {
+  id Int @id @default(autoincrement())
+
+  // status and risk score
+  status       Priority?
+  currentScore Int?
+  pastScores   Json?
+
+  aiDiagSummary     Json?
+  aiRiskFactors     Json?
+  aiRecommendations Json?
+
+  memberId Int  @unique
+
+  member Member? @relation(fields: [memberId], references: [id])
+}
+
+// member ovewview panel
+model Overview {
+  id Int @id @default(autoincrement())
+
+  overview           Json?
+  careManagement     Json?
+  operationalMetrics Json?
+
+  memberId Int @unique
+
+  member Member? @relation(fields: [memberId], references: [id])
+}
+
+// encounter details
+model Encounter {
+  id         Int            @id @default(autoincrement())
+  when       DateTime?     @default(now())
+  summary    String? // markdown
+  transcript Json?
+  aiInsight String?
+  communication String?
+  type       EncounterType?
+  patientResponse PatientResponseType?
+
+  // completed and follow up activities
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId Int?
+
+  // reference to member
+  member Member? @relation(fields: [memberId], references: [id])
+  memberId Int @unique
+
+  events     Event[]
+}
+
+model Activity {
+  id          Int       @id @default(autoincrement())
+  description String
+  completed   DateTime?
+  triggers    String?
+
+  Encounter Encounter[]
+}
+
+
+model Schedule {
+  id      Int    @id @default(autoincrement())
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+
+  start      DateTime?
+  end        DateTime?
+  isDraggable  Boolean?
+  due        DateTime?
+  title      String
+  description      String?
+  status String?
+  duration String?
+  encounterId    Int?
+  encounter      Encounter? @relation(fields: [encounterId], references: [id])
+  priority   Priority
+  hint       String? // ai generated
+  aiScheduled Boolean?
+  eventType EventType?
+  assignedUserId Int?
+  assignedUser   User?    @relation("UserToAssignedEvents", fields: [assignedUserId], references: [id])
+}
+
+// enum types
+
+enum PatientResponseType {
+  NO
+  YES
+}
+
+enum EventType {
+  TASK
+  LUNCH
+  TRAVEL
+}
+
+enum LanguageSkill {
+  SPEAK
+  READ
+  WRITE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum EncounterType {
+  PHONE
+  VISIT
+  OTHER
+}
+
+// model Punchlist {
+//   id Int @id @default(autoincrement())
+// }
+//
+// model Task {
+//   id Int @id @default(autoincrement())
+// }
+// model Workflow {
+//   id    Int     @id @default(autoincrement())
+// }

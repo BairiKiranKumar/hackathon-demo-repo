@@ -1,0 +1,42 @@
+.active-timeline {
+  background-color: #F4F8F6;
+  border-radius: 12px;
+}
+
+.active-ico {
+  background-color: var(--tab-active-bg);
+  color: var(--primary-color);
+  border-radius: 50%;
+  padding: 8px;
+  width: 30px;
+  height: 30px;
+}
+
+.inactive-ico {
+  background: #e9ecef;
+  color: var(--text-grey);
+  border-radius: 50%;
+  padding: 8px;
+  width: 30px;
+  height: 30px;
+}
+
+.custom-timeline .timeline-lineItem,
+.custom-timeline .mantine-Timeline-itemBullet {
+  background: transparent;
+  border: none;
+  border-color: transparent;
+}
+
+.custom-timeline .mantine-Timeline-itemBullet {
+  width: 30px;
+  height: 30px;
+}
+
+.custom-timeline .mantine-Timeline-itemBody {
+  padding-left: 16px;
+}
+
+.timeline-lineItem {
+  font-size: 16px;
+}

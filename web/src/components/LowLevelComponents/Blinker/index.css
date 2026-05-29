@@ -1,0 +1,23 @@
+.blinker-wrap {
+  animation: pulse-animation 2s infinite;
+  display: inline-block;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+@keyframes pulse-animation {
+  0% {
+    width: var(--initialSize);
+    height: var(--initialSize);
+  }
+  40% {
+    width: var(--size);
+    height: var(--size);
+    box-shadow: 0 0 0 1px rgba(var(--shadow-color, 255, 138, 138), 0.339);
+  }
+  100% {
+    box-shadow: 0 0 0 var(--size) rgba(var(--shadow-color, 255, 138, 138), 0);
+    width: var(--size);
+    height: var(--size);
+  }
+}
