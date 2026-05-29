@@ -1,0 +1,25 @@
+.command-palette-wrap .mantine-Input-wrapper {
+  --input-bd: none !important;
+  --input-bd-focus: none !important;
+}
+
+.command-palette-wrap {
+  position: fixed;
+  top: 16%;
+  z-index: 9;
+  width: 500px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.command-routes-list .route-list-item {
+  cursor: pointer;
+  padding: 4px 8px;
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+.command-routes-list .route-list-item:hover, .command-routes-list .route-list-item.active {
+  background-color: #e7f0ed;
+}

@@ -1,0 +1,80 @@
+.member-profile-header .mantine-Accordion-control{
+  background-color: #fff !important;
+  width: max-content;
+  padding-right: 0;
+  height: 100%;
+}
+
+.member-profile-header .mantine-Accordion-chevron{
+  border-radius: 50px;
+  background: var(--primary-sea-green);
+  height: 30px;
+  width: 30px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.member-profile-header .member-score-badge{
+  background-color: #FFE3E3;
+  color: var(--text-color);
+  padding: 6px 10px;
+  min-height: 32px;
+  text-transform: capitalize;
+}
+
+.member-profile-header .score-value{
+  background-color: #fff;
+  padding: 2px 6px;
+  border-radius: 5px;
+  margin-left: 4px;
+}
+
+.member-profile-header .member-score-info{
+  margin-right: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.member-profile-header .member-score-info.show-score-bg{
+  border-radius: 12px;
+  background: var(--mantine-color-gray-0);
+  display: block;
+}
+
+.member-profile-header .member-score-badge.past-score{
+  background-color: #fff;
+}
+
+.member-profile-header .member-image {
+  border-radius: 10px;
+  height: 84px;
+  width: 84px;
+}
+
+.member-profile-header .member-accordion {
+  padding: 16px 24px;
+  background: #FFF;
+  border-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.member-profile-header .member-accordion.expanded-accordion-shadow {
+  box-shadow: 0px 4px 10px 0px #EFF2F9;
+}
+
+.member-profile-header .member-name{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 310px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.member-profile-header .member-name-age{
+  display: flex;
+}
+
+.member-profile-header .member-personal-info .ai-pill-label .bh-icon-ai {
+  font-size: 12px;
+}

@@ -1,0 +1,109 @@
+.calendar-event-card {
+  border-radius: 8px;
+  background: #FFF;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.07);
+  padding: 16px;
+}
+
+.calendar-event-card.expanded-event-card{
+  border-radius: 16px
+}
+
+.calendar-event-card.side-event-card {
+  border: 1px solid #F1F3F5;
+  box-shadow: none;
+}
+
+.calendar-event-card.collapsed-event-card {
+  padding: 8px 16px;
+}
+
+.calendar-event-card.completed{
+  opacity: 0.7;
+  mix-blend-mode: luminosity;
+  background: transparent;
+  box-shadow: none;
+  margin-right: 31px;
+  pointer-events: none;
+}
+
+.calendar-event-card.completed .calendar-event-icon {
+  background-color: #E9ECEF !important;
+}
+
+.calendar-event-card.active .calendar-event-icon {
+  background-color: var(--primary-color) !important;
+}
+
+.calendar-event-card.active .calendar-event-icon svg {
+  stroke: #fff;
+}
+
+.calendar-event-card.active {
+  border: 2px solid var(--primary-color);
+}
+
+.calendar-event-card.completed .calendar-event-icon svg{
+  stroke: var(--text-light-grey) !important;
+}
+
+.calendar-event-card .divider {
+  border-radius: 3.5px;
+  background: rgba(134, 142, 150, 0.12);
+  height: 4px;
+  width: 4px;
+}
+
+.calendar-event-card .line-divider {
+  background-color: #DEE2E6;
+  width: 1px;
+  height: 14px;
+}
+
+.insight-activities-wrap .bh-icon-message {
+  color: var(--text-grey);
+}
+
+.insight-activities-wrap .insight-card {
+  border: 1px solid var(--ai-bg-color);
+  background: var(--gradients-ai);
+}
+
+.insight-activities-wrap .insight-card .bh-icon-ai {
+  font-size: 12px;
+}
+
+.bh-btn-transparent.card-drag-handle {
+  border-radius: 4px;
+  background-color: #E0E0E0;
+  padding: 8px 0;
+  display: inline-flex;
+  visibility: hidden;
+  cursor: grab;
+}
+
+.bh-btn-transparent.card-drag-handle.side-event-handle {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: rotate(90deg);
+}
+
+.calendar-card-wrap:hover .bh-btn-transparent.card-drag-handle {
+  visibility: visible;
+}
+
+.calendar-card-wrap .event-info-wrap .bh-icon-ai {
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+.calendar-card-wrap .insight-activity-info.hovered .icon-label-text {
+  display: inline-flex;
+  top: 3.5px;
+  position: relative;
+}
+
+.event-task-wrap:has(.insight-activity-info.hovered) {
+  height: unset !important;
+}

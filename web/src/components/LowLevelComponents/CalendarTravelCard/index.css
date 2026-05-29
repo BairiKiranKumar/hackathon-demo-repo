@@ -1,0 +1,28 @@
+.icon-connector {
+  position: relative;
+  justify-content: center;
+}
+
+.icon-connector .icon-wrapper svg{
+  margin: 6px 0px;
+}
+
+.icon-connector .icon-wrapper {
+  background: #f9fafc;
+  z-index: 2;
+  display: flex;
+}
+
+.icon-connector::before {
+  position: absolute;
+  content:'';
+  width: 1px;
+  background-color: var(--text-light-grey);
+  top: 0;
+  height: 100%;
+  right: 50%;
+}
+
+.get-location-action .icon-label-text{
+  flex-direction: row-reverse;
+}

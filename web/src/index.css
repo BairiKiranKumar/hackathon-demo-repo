@@ -1,0 +1,400 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url('../public/fonts/Nunito-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../public/fonts/Nunito-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../public/fonts/Nunito-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../public/fonts/Nunito-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bh-icons';
+  src: url('../public/fonts/bh-icons/bh-icons.eot');
+  src:
+    url('../public/fonts/bh-icons/bh-icons.eot?dtzbfs#iefix')
+      format('embedded-opentype'),
+    url('../public/fonts/bh-icons/bh-icons.ttf?dtzbfs') format('truetype'),
+    url('../public/fonts/bh-icons/bh-icons.woff?dtzbfs') format('woff'),
+    url('../public/fonts/bh-icons/bh-icons.svg?dtzbfs#bh-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='bh-icon-'],
+[class*=' bh-icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'bh-icons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bh-icon-dislike-filled:before {
+  content: '\e904';
+}
+.bh-icon-dislike:before {
+  content: '\e905';
+  color: var(--text-light-grey);
+}
+.bh-icon-like-filled:before {
+  content: '\e906';
+}
+.bh-icon-like:before {
+  content: '\e907';
+  color: var(--text-light-grey);
+}
+.bh-icon-high:before {
+  content: '\e901';
+}
+.bh-icon-medium:before {
+  content: '\e902';
+}
+.bh-icon-urgent:before {
+  content: '\e900';
+}
+.bh-icon-ai:before {
+  content: '\e903';
+}
+
+.bh-icon-message:before {
+  content: "\e908";
+}
+
+.bh-icon-M:before {
+  content: "\e909";
+}
+
+.bh-icon-L:before {
+  content: "\e90a";
+}
+
+.bh-icon-H:before {
+  content: "\e90b";
+}
+
+.bh-icon-Punchlist:before {
+  content: "\e90d";
+}
+
+.bh-icon-Notes:before {
+  content: "\e90c";
+}
+
+.bh-icon-AI-outlined:before {
+  content: "\e90e";
+}
+
+.bh-icon-Comment:before {
+  content: "\e90f";
+}
+
+.bh-icon-care-service:before {
+  content: "\e910";
+}
+
+:root {
+  --text-color: #212529;
+  --primary-color: var(--mantine-color-green-6);
+  --complete-green-status: var(--mantine-color-green-9);
+  --progress-brown-status: #967800;
+  --light-green: #F4F8F6;
+  --text-grey: #495057;
+  --text-light-grey: #868E96;
+  --bg-primary-grey: #f9fafc;
+  --urgent-impact-color: #c92a2a;
+  --high-impact-color: var(--urgent-impact-color);
+  --urgent-impact-bg: #ffe3e3;
+  --high-impact-bg: var(--urgent-impact-bg);
+  --medium-impact-color: #d08833;
+  --medium-impact-bg: #fff3bf;
+  --low-badge-bg: #DEF3EE;
+  --tab-active-bg: #E7F0ED;
+  --selected-green: #278C3D;
+  --ai-color: #3b00de;
+  --ai-bg-color: #ECE6FC;
+  --ai-table-bg: #FFF5F5;
+  --platinum-color: #DEE2E6;
+  --inactive-tab-color: #343A40;
+  --primary-sea-green: var(--mantine-color-green-8);
+  --gradients-ai: linear-gradient(
+    92deg,
+    #fbf3f8 -0.51%,
+    #e9f5fe 28.63%,
+    #f1eaff 66.31%,
+    #feecf4 99.97%
+  );
+  --ai-highlight:linear-gradient(92deg, #FFB3DF -0.51%, #D3C1FF 99.97%);
+  --memberProfileHeight:100px;
+  --memberMainTabHeight:66px;
+  --ai-call-color: #BC43D6;
+  --error-indicator-color: #E54141;
+}
+
+body {
+  font-family: 'Nunito' !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Nunito' !important;
+}
+
+a {
+  text-decoration: none;
+}
+/* global utility classes */
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.min-h-100vh {
+  min-height: 100vh;
+}
+
+.ms-12 {
+  margin-left: 12px;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.overflow-y-hidden{
+  overflow-y: hidden !important;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.v-divider {
+  height: 16px;
+  align-self: auto;
+}
+
+.md-btn-icon svg {
+  height: 20px;
+  width: 20px;
+  color: var(--text-grey);
+}
+
+.text-center {
+  text-align: center;
+}
+
+button.bh-btn-transparent {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.bg-ai-pill {
+  box-shadow: none !important
+}
+
+.ai-pill{
+  background: var(--gradients-ai);
+  box-shadow: -1px -1px 3px 0px #552EEE inset, 1px 1px 3px 0px #F81974 inset;
+}
+
+.ai-pill p {
+  font-size: inherit;
+}
+
+.ai-pill-label{
+  height: 100%;
+  align-items: center;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.bh-gap-1 {
+  gap: 8px;
+}
+
+.bh-gap-2 {
+  gap: 16px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.mantine-Tooltip-arrow {
+  border: 1px solid var(--platinum-color);
+}
+
+.bh-skeleton.bh-ai-loader::after {
+  background: linear-gradient(
+    92deg,
+    #fbf3f8 -0.51%,
+    #e9f5fe 28.63%,
+    #f1eaff 66.31%,
+    #feecf4 99.97%
+  );
+}
+
+.bh-skeleton::after {
+  background: linear-gradient(89deg, #EDF3F6 0.8%, #E0EBF0 35.8%, #E0EBF0 63.9%, #EDF3F6 96.31%);
+}
+
+.timeline-loader {
+  position: absolute;
+  left: -10px;
+}
+
+.timeline-loading-wrap .connecting-timeline {
+  padding-left: 12px;
+  position: relative;
+}
+
+.timeline-loading-wrap .connecting-timeline:not(:last-child) {
+  border-left: 1px solid var(--platinum-color);
+  padding-bottom: 26px;
+}
+
+input.mantine-Checkbox-input[data-indeterminate] {
+  background-color: transparent;
+}
+
+input.mantine-Checkbox-input {
+  cursor: pointer;
+}
+
+.mantine-Checkbox-inner:has(input.mantine-Checkbox-input[data-indeterminate]) .mantine-Checkbox-icon {
+  color: var(--primary-color)
+}
+
+.mantine-Checkbox-inner:has(input.mantine-Checkbox-input[data-indeterminate]) .mantine-Checkbox-icon rect {
+  height: 3px;
+}
+
+/* common table css */
+.bh-table-wrap .highlight-thead.mantine-Table-thead {
+  background-color: #eef6f2;
+}
+
+.bh-table-wrap .mantine-Table-thead th {
+  color: var(--text-grey);
+  padding: 8px 12px;
+}
+
+.bh-table-wrap tbody td {
+  padding: 12px;
+}
+
+.bh-table-wrap .mantine-Table-thead tr {
+  border: 0;
+}
+
+.bh-table-wrap:has(.highlight-trows) {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.bh-table-wrap:has(.highlight-trows) th {
+  padding: 6px 20px;
+}
+
+.bh-table-wrap tbody.highlight-trows td {
+  background-color: var(--bg-primary-grey);
+  padding: 12px 20px;
+}
+.bh-table-wrap tbody.highlight-trows td:first-child {
+  border-radius: 10px 0 0 10px;
+}
+.bh-table-wrap tbody.highlight-trows td:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.bh-table-wrap th:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.bh-table-wrap th:last-child {
+  border-radius: 0 4px 4px 0;
+}
+/* common table css ends */
+
+.tasks-events-dashboard .bh-icon-ai{
+  color: #3B00DE;
+  font-size: 16px;
+}
+
+.red-legend-pill {
+  background-color: var(--high-impact-bg)
+}
+
+.green-legend-pill {
+  background-color: var(--low-badge-bg)
+}
+
+.bh-toaster-wrap .mantine-Notification-icon {
+  margin-right: 12px;
+}
+
+.bh-toaster-wrap .mantine-Notification-title {
+  color: var(--mantine-color-black)
+}
+
+.bh-toaster-wrap .mantine-Notification-root {
+  box-shadow: 0px 7px 7px -5px rgba(0, 0, 0, 0.04), 0px 10px 15px -5px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(0, 0, 0, 0.05);
+}

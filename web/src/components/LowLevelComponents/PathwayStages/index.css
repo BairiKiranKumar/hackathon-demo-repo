@@ -1,0 +1,12 @@
+.pathway-stage {
+  min-width: 56px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pathway-stage-completed svg {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-color);
+}

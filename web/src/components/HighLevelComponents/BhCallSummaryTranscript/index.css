@@ -1,0 +1,28 @@
+.timeline-tabs {
+  padding: 20px;
+}
+
+.timeline-tabs-list {
+  gap: 0px;
+}
+
+.timeline-tab-active {
+  background-color: var(--tab-active-bg);
+  color: var(--primary-color);
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.timeline-panel-content {
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
+.summary-transcript-edit-btn {
+  background-color: #fff;
+  border: 1px solid var(--platinum-color);
+}
+
+.summary-transcript-edit-btn:hover {
+  background-color: #fff;
+}
