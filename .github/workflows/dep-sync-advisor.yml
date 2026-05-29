@@ -24,6 +24,5 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           PR_NUMBER: ${{ github.event.number }}
           REPO: ${{ github.repository }}
-          # Optional: tell Claude your stack explicitly for better suggestions
           STACK_HINT: "Node.js with npm, Python with pip, Docker"
-        run: python .github/scripts/dep_advisor.pyf
+        run: python .github/scripts/dep_advisor.py
