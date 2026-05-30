@@ -52,5 +52,5 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha || env.HEAD_SHA }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
           REPO: ${{ github.repository }}
-          STACK_HINT: "Node.js with npm, Python with pip, Docker"
+          STACK_HINT: "RedwoodJS with yarn, Prisma ORM, GraphQL SDL files (*.sdl.ts), PostgreSQL database"
         run: python .github/scripts/dep_advisor.py

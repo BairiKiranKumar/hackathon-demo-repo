@@ -8,14 +8,14 @@ exact commands the developer needs to run to sync changes locally.
 import os
 import sys
 import json
+import fnmatch
 import subprocess
 import urllib.request
 import urllib.error
-import hashlib
 
 # ─── Config ───────────────────────────────────────────────────────────────────
 
-# Files to watch. Add/remove based on your stack.
+# Exact filenames to watch (matched against full relative path OR basename).
 DEP_FILES = [
     # JS/TS
     "package.json",
@@ -55,10 +55,20 @@ DEP_FILES = [
     ".env.template",
     # DB / migrations
     "alembic.ini",
-    "MIGRATION_NOTES.md",   # ask backend devs to drop notes here
+    "MIGRATION_NOTES.md",
     # Native / system
-    "apt-requirements.txt", # custom: list apt packages
-    "brew-requirements.txt",# custom: list brew packages
+    "apt-requirements.txt",
+    "brew-requirements.txt",
+]
+
+# Glob patterns matched against the FILENAME (basename) of any changed file.
+# This catches files anywhere in the repo — e.g. api/src/graphql/events.sdl.ts
+# matches "*.sdl.ts", and api/db/schema.prisma matches "schema.prisma".
+DEP_PATTERNS = [
+    "*.sdl.ts",       # GraphQL SDL files (RedwoodJS / any GraphQL stack)
+    "*.prisma",       # Prisma schema files (schema.prisma, any location)
+    "*.graphql",      # Plain .graphql schema files
+    "*.gql",          # Alternate GraphQL extension
 ]
 
 # Groq model — llama-3.3-70b-versatile is free and handles this easily
@@ -75,15 +85,42 @@ def run(cmd: list[str]) -> str:
 
 
 def get_changed_files(base: str, head: str) -> dict[str, str]:
-    """Return {filename: diff_text} for every watched file that changed."""
-    diffs = {}
-    for f in DEP_FILES:
+    """Return {filepath: diff_text} for every watched file that changed.
+
+    Strategy:
+    1. Use `git diff --name-only` to get ALL files changed in this PR.
+    2. Match each changed file against DEP_FILES (exact) and DEP_PATTERNS (glob on basename).
+    3. Fetch the actual diff only for matched files.
+
+    This handles files nested anywhere in the repo (e.g. api/db/schema.prisma,
+    api/src/graphql/events.sdl.ts) without hardcoding their paths.
+    """
+    # Step 1: all files changed between base and head
+    all_changed = run(["git", "diff", "--name-only", base, head]).splitlines()
+
+    # Step 2: match against exact list and glob patterns
+    matched: set[str] = set()
+    for filepath in all_changed:
+        basename = os.path.basename(filepath)
+        # Exact match — full path or just filename
+        if filepath in DEP_FILES or basename in DEP_FILES:
+            matched.add(filepath)
+            continue
+        # Glob pattern match on basename (catches nested files)
+        for pattern in DEP_PATTERNS:
+            if fnmatch.fnmatch(basename, pattern):
+                matched.add(filepath)
+                break
+
+    # Step 3: fetch diffs for matched files only
+    diffs: dict[str, str] = {}
+    for f in sorted(matched):
         diff = run(["git", "diff", base, head, "--", f])
         if diff:
-            # Trim very large diffs (lock files) so we stay within token limits
             if len(diff) > MAX_DIFF_CHARS:
                 diff = diff[:MAX_DIFF_CHARS] + f"\n\n... [truncated — {len(diff)} chars total]"
             diffs[f] = diff
+
     return diffs
 
 
@@ -107,7 +144,13 @@ Important rules:
 - If a native system package is needed (e.g. via apt, brew, or similar), include the install command and explain why briefly
 - If a database migration needs to run, include that command with a ⚠️ warning to back up data first
 - If an environment variable was added to .env.example, flag it clearly so the developer adds it to their .env
-- If only lock file internals changed (no new packages), say "run npm install / pip install to sync lock file — no new packages added"
+- If only lock file internals changed (no new packages), say "run install to sync lock file — no new packages added"
+- If a Prisma schema file (*.prisma) changed:
+  - If new models, fields, or relations were added/modified, include the migrate command with a ⚠️ warning (e.g. `yarn rw prisma migrate dev` or `npx prisma migrate dev`)
+  - Always follow the migration with the type-generation command (e.g. `yarn rw g types` or `npx prisma generate`)
+- If a GraphQL SDL file (*.sdl.ts, *.graphql, *.gql) changed:
+  - Include the type-generation command so TypeScript types stay in sync (e.g. `yarn rw g types`)
+  - If the SDL adds a new resolver or service, note that the developer may need to pull updated service files too
 - Be concise. No long explanations unless a command is risky.
 - Do NOT suggest commands for files that didn't change.
 - If you're unsure about something, say so briefly rather than guessing.
@@ -141,7 +184,7 @@ def call_groq(prompt: str, api_key: str) -> str:
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
-            "User-Agent": "dep-sync-advisor/1.0"
+            "User-Agent": "dep-sync-advisor/1.0"  # Required: Cloudflare blocks urllib without User-Agent (error 1010)
         }
     )
 
@@ -175,12 +218,10 @@ def post_or_update_comment(repo: str, pr: str, token: str, body: str):
     existing = get_existing_advisor_comment(repo, pr, token)
 
     if existing:
-        # PATCH = update existing comment
         url = f"https://api.github.com/repos/{repo}/issues/comments/{existing['id']}"
         method = "PATCH"
         print(f"Updating existing advisor comment #{existing['id']}")
     else:
-        # POST = new comment
         url = f"https://api.github.com/repos/{repo}/issues/{pr}/comments"
         method = "POST"
         print("Posting new advisor comment")
@@ -220,7 +261,6 @@ def build_comment(suggestion: str, changed_files: list[str]) -> str:
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
 def main():
-    # Read env
     api_key   = os.environ.get("GROQ_API_KEY", "").strip()
     token     = os.environ.get("GITHUB_TOKEN", "").strip()
     base_sha  = os.environ.get("BASE_SHA", "").strip()
@@ -239,7 +279,6 @@ def main():
 
     if not diffs:
         print("No dependency file changes detected — nothing to advise.")
-        # Optionally: remove old comment if it exists from a previous push
         sys.exit(0)
 
     print(f"Changed dep files: {list(diffs.keys())}")
