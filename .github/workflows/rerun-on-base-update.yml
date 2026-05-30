@@ -1,0 +1,43 @@
+# .github/workflows/rerun-on-base-update.yml
+name: Re-run dep advisor when base branch changes
+
+on:
+  push:
+    branches:
+      - main        # fires when backend merges into main
+    paths:          # only if dependency files actually changed
+      - 'package.json'
+      - 'requirements.txt'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - '*.lock'
+      - 'alembic.ini'
+      # ... mirror your DEP_FILES list here
+
+permissions:
+  actions: write
+  pull-requests: read
+
+jobs:
+  rerun-pr-advisor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-run dep advisor on all open PRs targeting main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Find all open PRs targeting main
+          PR_NUMBERS=$(gh pr list \
+            --base main \
+            --state open \
+            --json number \
+            --jq '.[].number' \
+            --repo ${{ github.repository }})
+
+          for PR in $PR_NUMBERS; do
+            echo "Re-triggering advisor for PR #$PR"
+            gh workflow run dep-sync-advisor.yml \
+              --repo ${{ github.repository }} \
+              --field pr_number=$PR
+            sleep 2   # avoid GitHub API rate limits
+          done
