@@ -3,10 +3,49 @@ name: Dependency Sync Advisor
 on:
   pull_request: # Trigger natively on PR updates
     paths:
-      - 'requirements.txt'
+      # JS/TS
       - 'package.json'
-      - 'alembic.ini'
+      - 'package-lock.json'
+      - 'yarn.lock'
+      - 'pnpm-lock.yaml'
+      - '.nvmrc'
+      - '.node-version'
+      # Python
+      - 'requirements.txt'
+      - 'requirements-dev.txt'
+      - 'Pipfile'
+      - 'Pipfile.lock'
+      - 'pyproject.toml'
+      - 'poetry.lock'
+      - 'setup.py'
+      - 'setup.cfg'
+      # Ruby
+      - 'Gemfile'
+      - 'Gemfile.lock'
+      # Dart/Flutter
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      # Java/Kotlin
+      - 'build.gradle'
+      - 'build.gradle.kts'
+      - 'pom.xml'
+      - 'gradle.properties'
+      # Docker / infra
+      - 'Dockerfile'
       - 'docker-compose.yml'
+      - 'docker-compose.yaml'
+      - 'docker-compose.override.yml'
+      # Environment / config
+      - '.env.example'
+      - '.env.sample'
+      - '.env.template'
+      # DB / migrations
+      - 'alembic.ini'
+      - 'MIGRATION_NOTES.md'
+      # Native / system
+      - 'apt-requirements.txt'
+      - 'brew-requirements.txt'
+
   workflow_dispatch: # Allow the rerun workflow to trigger this
     inputs:
       pr_number:
@@ -26,23 +65,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      # If triggered by the other workflow, we need to fetch the branch names dynamically
+      # FIX: Use baseRefOid/headRefOid to get actual SHAs, not branch names
       - name: Fetch PR refs if triggered manually
         if: github.event_name == 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PR_JSON=$(gh pr view ${{ github.event.inputs.pr_number }} --json baseRefName,headRefName)
-          echo "BASE_REF=$(echo $PR_JSON | jq -r .baseRefName)" >> $GITHUB_ENV
-          echo "HEAD_REF=$(echo $PR_JSON | jq -r .headRefName)" >> $GITHUB_ENV
+          PR_JSON=$(gh pr view ${{ github.event.inputs.pr_number }} \
+            --json baseRefOid,headRefOid)
+          echo "BASE_SHA=$(echo $PR_JSON | jq -r .baseRefOid)" >> $GITHUB_ENV
+          echo "HEAD_SHA=$(echo $PR_JSON | jq -r .headRefOid)" >> $GITHUB_ENV
 
       - name: Run dependency diff advisor
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Fallback logic depending on if it was a PR event or a workflow_dispatch event
-          BASE_SHA: ${{ github.event.pull_request.base.sha || env.BASE_REF }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha || env.HEAD_REF }}
+          # FIX: env.BASE_SHA / env.HEAD_SHA now carry real SHAs (set in step above)
+          BASE_SHA: ${{ github.event.pull_request.base.sha || env.BASE_SHA }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || env.HEAD_SHA }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
           REPO: ${{ github.repository }}
           STACK_HINT: "Node.js with npm, Python with pip, Docker"
