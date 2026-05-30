@@ -1,6 +1,7 @@
 export const schema = gql`
   type Member {
     id: Int!
+    nickname: String
     name: String!
     dob: DateTime!
     gender: String!
@@ -33,6 +34,7 @@ export const schema = gql`
   }
 
   input CreateMemberInput {
+    nickname: String
     name: String!
     dob: DateTime!
     gender: String!
@@ -51,6 +53,7 @@ export const schema = gql`
   }
 
   input UpdateMemberInput {
+    nickname: String
     name: String
     dob: DateTime
     gender: String
