@@ -28,6 +28,9 @@ model User {
 model Member {
   id Int @id @default(autoincrement())
 
+  // optional short name shown in UI
+  nickname String?
+
   // fhir data information
   name           String
   dob            DateTime
