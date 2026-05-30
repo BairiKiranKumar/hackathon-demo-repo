@@ -140,7 +140,8 @@ def call_groq(prompt: str, api_key: str) -> str:
         data=payload,
         headers={
             "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "dep-sync-advisor/1.0"
         }
     )
 
