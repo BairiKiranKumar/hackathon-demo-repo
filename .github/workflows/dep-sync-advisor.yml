@@ -1,50 +1,12 @@
 name: Dependency Sync Advisor
 
 on:
-  pull_request: # Trigger natively on PR updates
-    paths:
-      # JS/TS
-      - 'package.json'
-      - 'package-lock.json'
-      - 'yarn.lock'
-      - 'pnpm-lock.yaml'
-      - '.nvmrc'
-      - '.node-version'
-      # Python
-      - 'requirements.txt'
-      - 'requirements-dev.txt'
-      - 'Pipfile'
-      - 'Pipfile.lock'
-      - 'pyproject.toml'
-      - 'poetry.lock'
-      - 'setup.py'
-      - 'setup.cfg'
-      # Ruby
-      - 'Gemfile'
-      - 'Gemfile.lock'
-      # Dart/Flutter
-      - 'pubspec.yaml'
-      - 'pubspec.lock'
-      # Java/Kotlin
-      - 'build.gradle'
-      - 'build.gradle.kts'
-      - 'pom.xml'
-      - 'gradle.properties'
-      # Docker / infra
-      - 'Dockerfile'
-      - 'docker-compose.yml'
-      - 'docker-compose.yaml'
-      - 'docker-compose.override.yml'
-      # Environment / config
-      - '.env.example'
-      - '.env.sample'
-      - '.env.template'
-      # DB / migrations
-      - 'alembic.ini'
-      - 'MIGRATION_NOTES.md'
-      # Native / system
-      - 'apt-requirements.txt'
-      - 'brew-requirements.txt'
+  pull_request:
+    # FIX: No paths filter here — GitHub only checks paths against the NEW push on
+    # synchronize events, so PRs with dep-file changes would stop triggering after
+    # the first non-dep commit. The Python script handles the "nothing changed" case
+    # gracefully (exits 0 with no comment posted/updated).
+    types: [opened, synchronize, reopened]
 
   workflow_dispatch: # Allow the rerun workflow to trigger this
     inputs:
@@ -52,6 +14,12 @@ on:
         description: 'PR number to run against'
         required: true
         type: string
+
+# FIX: Prevent stacked runs when a developer pushes several commits quickly.
+# cancel-in-progress kills the queued run so only the latest commit wins.
+concurrency:
+  group: dep-advisor-pr-${{ github.event.pull_request.number || github.event.inputs.pr_number }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -65,7 +33,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # FIX: Use baseRefOid/headRefOid to get actual SHAs, not branch names
+      # Use baseRefOid/headRefOid to get actual SHAs, not branch names
       - name: Fetch PR refs if triggered manually
         if: github.event_name == 'workflow_dispatch'
         env:
@@ -80,7 +48,6 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # FIX: env.BASE_SHA / env.HEAD_SHA now carry real SHAs (set in step above)
           BASE_SHA: ${{ github.event.pull_request.base.sha || env.BASE_SHA }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || env.HEAD_SHA }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
