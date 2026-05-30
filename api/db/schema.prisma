@@ -92,6 +92,7 @@ model Encounter {
   communication String?
   type       EncounterType?
   patientResponse PatientResponseType?
+  notes String?
 
   // completed and follow up activities
   activity   Activity? @relation(fields: [activityId], references: [id])
@@ -129,6 +130,8 @@ model Event {
   description      String?
   status String?
   duration String?
+  location String?
+  isAllDay Boolean?
   encounterId    Int?
   encounter      Encounter? @relation(fields: [encounterId], references: [id])
   priority   Priority

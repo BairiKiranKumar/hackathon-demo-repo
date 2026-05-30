@@ -7,6 +7,8 @@ export const schema = gql`
     isDraggable: Boolean
     due: DateTime
     title: String!
+    location: String
+    isAllDay: Boolean
     status: String
     duration: String
     encounterId: Int
@@ -40,6 +42,8 @@ export const schema = gql`
     isDraggable: Boolean
     due: DateTime
     title: String!
+    location: String
+    isAllDay: Boolean
     status: String
     duration: String
     encounterId: Int
@@ -58,6 +62,8 @@ export const schema = gql`
     isDraggable: Boolean
     due: DateTime
     title: String
+    location: String
+    isAllDay: Boolean
     status: String
     duration: String
     encounterId: Int

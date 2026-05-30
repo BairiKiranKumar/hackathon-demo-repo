@@ -3,6 +3,7 @@ export const schema = gql`
     id: Int!
     when: DateTime
     summary: String
+    notes: String
     transcript: JSON
     aiInsight: String
     communication: String
@@ -33,6 +34,7 @@ export const schema = gql`
   input CreateEncounterInput {
     when: DateTime
     summary: String
+    notes: String
     transcript: JSON
     aiInsight: String
     communication: String
@@ -45,6 +47,7 @@ export const schema = gql`
   input UpdateEncounterInput {
     when: DateTime
     summary: String
+    notes: String
     transcript: JSON
     aiInsight: String
     communication: String
